@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Us</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- 💖 FLOATING HEARTS CONTAINER -->
+<div id="hearts"></div>
+
+<div class="reel">
+
+  <!-- SCREEN 1 -->
+  <div class="screen active" id="screen1">
+    <img class="gif"
+      src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif">
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div class="screen" id="screen2">
+    <img class="gif"
+      src="img3.gif">
+    <h1>I knew you would say yes 💖</h1>
+    <p>You always choose us 🥹</p>
+    <button class="yes" id="openGifts">Your Gifts Are Ready 🎁</button>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div class="screen" id="screen3">
+    <h2>Open your gifts BABDAAAA 🎁</h2>
+    <div class="gift-list" id="giftList"></div>
+  </div>
+
+</div>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* 🎵 MUSIC */
+const bgMusic = document.getElementById("bgMusic");
+bgMusic.volume = 0.5;
+
+/* ❌ NO BUTTON TEXTS */
+const noTexts = [
+  "Are you sure? 🥺","Really sure?? 😭","Think again…",
+  "Pookie please 💔","Just say yes ❤️"
+];
+let noIndex = 0;
+noBtn.onclick = () => {
+  noBtn.innerText = noTexts[noIndex++ % noTexts.length];
+  yesBtn.style.fontSize =
+    (parseFloat(getComputedStyle(yesBtn).fontSize) * 1.25) + "px";
+};
+
+/* ✅ YES CLICK */
+yesBtn.onclick = () => {
+  bgMusic.play();
+  launchConfetti();
+
+  screen1.classList.remove("active");
+  screen2.classList.add("active");
+};
+
+openGifts.onclick = () => {
+  screen2.classList.remove("active");
+  screen3.classList.add("active");
+};
+
+/* 🎉 CONFETTI */
+function launchConfetti(){
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.backgroundColor=
+      ["#ff4d6d","#ffafcc","#ffd6e0","#ff85a1"][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+
+/* 💖 FLOATING HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=16+Math.random()*20+"px";
+  document.getElementById("hearts").appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},350);
+
+/* ---------- GIFTS DATA ---------- */
+const paragraphs = [
+  "Shreyash, I didn’t just fall in love with you,\nI trusted you with the parts of me\nI hide from the world.",
+   "You didn’t fix me, Shreyash,\nyou stayed\nwhile I healed myself.",
+   "Loving you feels like recognition, Shreyash,\nlike my soul finally saying\nthere you are.",
+   "I carry you in my quiet moments, Shreyash,\nwhere love is soft\nand most real.",
+   "You see me tired, Shreyash,\nunguarded and unfiltered,\nand still choose me.",
+   "My heart doesn’t race with you, Shreyash,\nit rests,\nand that’s how I know.",
+   "Even when I doubt myself, Shreyash,\nyour love holds me\nwithout asking why.",
+   "I don’t lose myself in you, Shreyash,\nI find the parts of me\nI forgot existed.",
+   "Your presence doesn’t demand, Shreyash,\nit stays,\nand that feels like safety.", 
+   "I love you in the silences, Shreyash,\nwhere nothing is said\nbut everything is felt.",
+   "You hold my heart, Shreyash,\nwithout gripping it,\nand that’s rare.",
+   "If my soul could speak, Shreyash,\nit would whisper your name\nwithout sound.",
+   "You don’t complete me, Shreyash,\nyou walk beside me,\nand that feels sacred.",
+   "I choose you on easy days, Shreyash,\nand more on the hard ones,\nwhere love is tested.",
+   " Some loves burn fast, Shreyash,\nours glows slow,\nsteady and deep.",
+  "Forever Us \n Ashlesha ❤️ Shreyash \n Always. Endlessly."
+];
+
+/* ---------- CREATE 16 GIFTS ---------- */
+const giftList = document.getElementById("giftList");
+
+paragraphs.forEach((text, i) => {
+  giftList.innerHTML += `
+    <div class="gift" onclick="toggleGift(this)">
+      <div class="gift-title"> For You My Man>>>>🎁</div>
+      <div class="gift-content">
+        <img src="p${i + 1}.jpg">
+        <p>${text}</p>
+      </div>
+    </div>
+  `;
+});
+
+function toggleGift(el){
+  el.querySelector(".gift-content").classList.toggle("show");
+}
+</script>
+
+</body>
+</html>
